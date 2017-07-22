@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quotes</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'quotes/style.css' %}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+<body>
+    <h2>Welcome {{request.session.name}}</h2>
+    <div class="container">
+        <h4>Quotable Quotes</h4>
+        {% for quote in all_quotes %}
+            <fieldset>
+                <h4>Quote by {{quote.author}}</h4>
+                <p>{{ quote.content }}</p>
+                <p>Posted by <a href="/user/{{quote.added_by.id}}">{{ quote.added_by.name }}</a></p>
+                <a href="/fav/{{ user.id }}">Add to Favorite</a>
+                <hr>
+            </fieldset>
+        {% endfor %}
+    </div>
+    <div class="container">
+        <h3>Favorite Quotes</h3>
+        <h3>Add a Quote</h3>
+        <form action="/quotes/add" method="post">
+            {% csrf_token %}
+            Author: <input type="text" name="author" value="">
+            Quote: <textarea name="quote" rows="8" cols="80"></textarea>
+
+            <input class="btn-success" type="submit" value="Add Quote">
+        </form>
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>

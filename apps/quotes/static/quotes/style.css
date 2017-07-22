@@ -1,0 +1,14 @@
+.container{
+
+    display: inline-block;
+    width: 50%;
+    clear: both;
+}
+.container input, .container textarea{
+    width: 50%;
+    clear: both;
+}
+
+/*body{
+    background-color: blue
+}*/
